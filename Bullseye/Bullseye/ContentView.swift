@@ -15,10 +15,13 @@ struct ContentView: View {
     
     //User interface views
     @State var alerIsVisible: Bool = false
+    @State var sliderValue: Double = 50.0
     
     // User interface content and layout
     var body: some View {
         VStack {
+            
+            Spacer()
             
             // Target row
             HStack {
@@ -26,12 +29,16 @@ struct ContentView: View {
                 Text("100")
             }
             
+            Spacer()
+            
             // Slider row
             HStack {
                 Text("1")
-                Slider(value: .constant(10))
+                Slider(value: self.$sliderValue, in: 1...100)
                 Text("100")
             }
+            
+            Spacer()
             
             // Button row
             Button(action: {
@@ -41,12 +48,29 @@ struct ContentView: View {
                 Text("Hit me!")
             }
             .alert(isPresented: self.$alerIsVisible) { () -> Alert in
-                return Alert(title: Text("Hello there!"), message: Text("Pop-up text"), dismissButton: Alert.Button.default(Text("Awersome")))
+                return Alert(title: Text("Hello there!"), message: Text("The slider's value is \(Int(self.sliderValue.rounded()))"), dismissButton: Alert.Button.default(Text("Awersome")))
             }
             
-            // Score row
-            // TODO: Add view for the score
+            Spacer()
             
+            // Score row
+            // TODO: Add view for the score rounds and start and info buttons
+            HStack {
+                Button(action: {}) {
+                    Text("Start over")
+                }
+                Spacer()
+                Text("Score:")
+                Text("999999")
+                Spacer()
+                Text("Round")
+                Text("999")
+                Spacer()
+                Button(action: {}) {
+                    Text("Info")
+                }
+            }
+            .padding(.bottom, 20)
         }
     }
     
